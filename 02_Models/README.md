@@ -121,7 +121,7 @@ content='AI, or Artificial Intelligence, refers to the simulation of human intel
 通过以下代码我们查看一下 `response` 变量的类型：
 
 ```python
-response.__class
+response.__class__
 ```
 
 可以看到，它是一个 `AIMessage` 类型的对象。
@@ -129,8 +129,6 @@ response.__class
 ```shell
 langchain.schema.messages.AIMessage
 ```
-
-```shell
 
 接下来我们使用 `SystemMessage` 指令来指定模型的行为。如下代码指定模型对AI一无所知，在回答AI相关问题时，回答“I don't know”。
 
