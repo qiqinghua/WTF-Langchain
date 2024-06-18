@@ -139,7 +139,30 @@ headers_to_split_on = [
 splitter = MarkdownHeaderTextSplitter(headers_to_split_on=headers_to_split_on)
 splits = splitter.split_text(markdown_document)
 ```
+##### 修订
+``` python
+from langchain.text_splitter import MarkdownHeaderTextSplitter
+loader = TextLoader("./README.md", encoding="utf-8")
+docs = loader.load()
 
+headers_to_split_on = [
+    ("#", "Header 1"),
+    ("##", "Header 2"),
+    ("###", "Header 3"),
+]
+
+splitter = MarkdownHeaderTextSplitter(headers_to_split_on=headers_to_split_on)
+
+split_docs = []
+for doc in docs:
+    split_docs.extend(splitter.split_text(doc.page_content))
+
+print("\n拆分后的文档内容:")
+for idx, split_doc in enumerate(split_docs):
+    print(f"块 {idx + 1}:")
+    print(split_doc)
+    print()
+```
 #### 按字符递归拆分
 
 这也是对于普通文本的推荐拆分方式。它通过一组字符作为参数，按顺序尝试使用这些字符进行拆分，直到块的大小足够小为止。默认的字符列表是["\n\n", "\n", " ", ""]。它尽可能地保持段落，句子，单词的完整，因此尽可能地保证语义完整。
