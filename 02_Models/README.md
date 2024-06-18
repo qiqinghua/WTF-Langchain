@@ -5,6 +5,56 @@ tags:
   - llm
   - langchain
 ---
+# 修订
+在这个章节中的绝大多数代码都不能正常运行了，这是因为predic（）方法已经被chat所代替
+但是作为知识了解，还是有必要的
+可以替代的代码为：
+``` python
+import os
+from dotenv import load_dotenv
+from langchain.llms import OpenAI
+from langchain.chat_models.openai import ChatOpenAI
+
+# 加载环境变量
+load_dotenv()  # 默认加载当前目录下的 .env 文件
+
+# 获取 OpenAI API 密钥和自定义 base_url
+openai_api_key = os.getenv('OPENAI_API_KEY')
+openai_base_url = os.getenv('BASE_URL')
+
+print(openai_api_key)
+print(openai_base_url)
+
+if not openai_api_key:
+    raise ValueError("请设置你的 OpenAI API 密钥在 .env 文件中")
+
+if not openai_base_url:
+    raise ValueError("请设置你的 OpenAI base_url 在 .env 文件中")
+
+# 初始化 OpenAI LLM，设置自定义 base_url
+
+
+llm = ChatOpenAI(      
+    model_name="gpt-3.5-turbo",
+    openai_api_key=openai_api_key,
+    openai_api_base=openai_base_url,
+    temperature=0.8,
+    max_tokens=60,)
+
+messages = [
+    (
+        "system",
+        "You are a helpful assistant.",
+    ),
+    ("human", "给我一个很土但是听起来很好养活的男孩名字."),
+]
+
+aimessage=llm.invoke(messages)
+
+print(aimessage.content)
+
+```
+
 
 # WTF Langchain极简入门: 02. 模型
 
