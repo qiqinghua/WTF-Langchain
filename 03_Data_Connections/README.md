@@ -105,6 +105,22 @@ python_docs = python_splitter.create_documents([PYTHON_CODE])
 python_docs
 ```
 
+##### 修订
+如果要拆分一个文件里的python代码，如下：
+```python
+from langchain.document_loaders import TextLoader
+from langchain.text_splitter import RecursiveCharacterTextSplitter, Language
+
+loader = TextLoader("./README.md", encoding="utf-8")
+docs = loader.load()
+
+python_splitter = RecursiveCharacterTextSplitter.from_language(
+    language=Language.PYTHON, chunk_size=50, chunk_overlap=20
+)
+
+python_docs = python_splitter.split_documents(docs)
+python_docs
+```
 #### Markdown文档拆分
 
 `MarkdownHeaderTextSplitter` 可以将Markdown文档按照段落结构，基于Markdown语法进行文档分块。代码如下：
