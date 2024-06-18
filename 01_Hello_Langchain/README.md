@@ -38,6 +38,15 @@ tags:
 
 `Langchain` 作为一个开源框架，提供与OpenAI等语言模型的接口，简化了在应用程序中集成和利用语言模型能力的过程。
 
+## 查看langchain的版本
+``` python
+import importlib.metadata
+
+version = importlib.metadata.version("langchain")
+print(f"LangChain version: {version}")
+```
+修订的版本是0.2.5版本
+
 ## 开发前的准备
 
 在开始第一个Langchain应用程序之前，我们需要做一些必要的准备。
@@ -124,6 +133,30 @@ content='Hello! How can I assist you today?' additional_kwargs={} example=False
 
 ## 总结
 本节课程中，我们简要介绍了 `Langchain`，`OpenAI` 以及它们的关系，并完成了第一个 `Langchain` 应用 —— `Hello Langchain`。
+
+## 修订后的版本为
+``` python
+from dotenv import load_dotenv
+from langchain.llms import OpenAI
+from langchain.chat_models.openai import ChatOpenAI
+import os
+
+load_dotenv()
+openai_api_key = os.getenv('OPENAI_API_KEY')
+openai_base_url = os.getenv('BASE_URL')
+
+chat = ChatOpenAI(
+    model_name="gpt-3.5-turbo",
+    openai_api_key=openai_api_key,
+    openai_api_base=openai_base_url,
+    temperature=0.8,
+    max_tokens=60,
+)
+message = "你好，世界！"
+response = chat.invoke(message)
+print(response.content)
+```
+
 
 ### 相关文档资料链接：
 1. [Python Langchain官方文档](https://python.langchain.com/docs/get_started/introduction.html) 
