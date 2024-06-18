@@ -56,8 +56,9 @@ docs = loader.load()
 ```
 
 注意，如果出现编码错误报警，说明在读取文件时遇到了编码问题。默认情况下，Python 使用系统默认编码来读取文件，而在某些系统（尤其是 Windows）上，这可能不是 UTF-8。为了解决这个问题，你可以在加载文件时显式指定编码为 utf-8。
+```python
 loader = TextLoader("./README.md", encoding="utf-8")
-
+```
 通过显式指定文件编码，可以避免因默认编码不匹配而导致的 UnicodeDecodeError 错误。请确保你的 README.md 文件确实是使用 UTF-8 编码保存的。如果你不确定文件的编码，可以使用文本编辑器（如 VSCode）打开文件并确认其编码格式。
 在上述代码中，我们使用 `TextLoader` 加载了本地文件系统中的 `./README.md` 文件。`TextLoader` 的 `load` 方法返回一个 `Document` 对象数组（`Document` 是 `Langchain` 提供的文档类，包含原始内容和元数据）。我们可以通过 `Document` 对象的 `page_content` 属性来访问文档的原始内容。
 
